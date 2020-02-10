@@ -17,7 +17,7 @@ describe('Programmer', () => {
     programmer.socialDrainPerSecond();
     programmer.workDrainPerSecond();
     programmer.hungerDrainPerSecond();
-    programmer.happiness();
+    programmer.totalHappiness();
     jest.advanceTimersByTime(1001);
     expect(programmer.hunger).toEqual(19);
   });
@@ -26,7 +26,7 @@ describe('Programmer', () => {
     programmer.socialDrainPerSecond();
     programmer.workDrainPerSecond();
     programmer.hungerDrainPerSecond();
-    programmer.happiness();
+    programmer.totalHappiness();
     jest.advanceTimersByTime(1001);
     expect(programmer.social).toEqual(19);
   });
@@ -35,7 +35,7 @@ describe('Programmer', () => {
     programmer.socialDrainPerSecond();
     programmer.workDrainPerSecond();
     programmer.hungerDrainPerSecond();
-    programmer.happiness();
+    programmer.totalHappiness();
     jest.advanceTimersByTime(1001);
     expect(programmer.work).toEqual(19);
   });
@@ -44,7 +44,7 @@ describe('Programmer', () => {
     programmer.socialDrainPerSecond();
     programmer.workDrainPerSecond();
     programmer.hungerDrainPerSecond();
-    programmer.happiness();
+    programmer.totalHappiness();
     jest.advanceTimersByTime(1001);
     expect(programmer.happiness).toEqual(57);
   });
@@ -54,18 +54,9 @@ describe('Programmer', () => {
     programmer.socialDrainPerSecond();
     programmer.workDrainPerSecond();
     programmer.hungerDrainPerSecond();
-    programmer.happiness();
+    programmer.totalHappiness();
     jest.advanceTimersByTime(1001);
     expect(programmer.happiness).toEqual(36);
   });
-  
-  test('should have a happiness level of 36 after 1 second', () => {
-    // programmer.socialDrainPerSecond();
-    // programmer.workDrainPerSecond();
-    programmer.hungerDrainPerSecond();
-    programmer.happiness();
-    jest.advanceTimersByTime(1001);
-    programmer.feed();
-    expect(programmer.hunger).toEqual(20);
-  });
 });
+

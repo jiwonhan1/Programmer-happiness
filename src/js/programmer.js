@@ -9,49 +9,46 @@ export class Programmer {
   getHappiness() {
     return this.happiness;
   }
+
   hungerDrainPerSecond() {
-    if(this.hunger <= 0) {
-      setInterval(() => {
-        this.hunger -= 2;
-      }, 1000)
-    } else {
-      setInterval(() => {
-        this.hunger--;
-      }, 1000)
-    }
+    setInterval(() => {
+      if(this.hunger <= 0) {
+        this.hunger = this.hunger - 2;
+        console.log(this.hunger + " hunger")
+      } else {
+        this.hunger = this.hunger - 1;
+        console.log(this.hunger + " hunger")
+      }
+    },1000);
   }
 
   socialDrainPerSecond() {
-    if(this.social <= 0) {
-      setInterval(() => {
-        this.social -= 2;
-      }, 1000)
-    } else {
     setInterval(() => {
-      this.social--;
-    }, 1000)
-  }
+      if(this.social <= 0) {
+        this.social = this.social - 2;
+      } else {
+        this.social = this.social - 1;
+      }
+    },1000);
 }
 
   workDrainPerSecond() {
-    if(this.work <= 0) {
-      setInterval(() => {
-        this.work -= 2;
-      }, 1000)
-    } else {
     setInterval(() => {
-      this.work--;
-    }, 1000)
-  }
+      if(this.work <= 0) {
+        this.work = this.work - 2;
+      } else {
+        this.work = this.work - 1;
+      }
+    },1000);
 }
 
-  happiness() {
+  totalHappiness() {
     setInterval(() => {
       this.happiness = this.work + this.social + this.hunger;
     }, 1);
   }
   feed() {
-    this.hunger += 20;
+    this.hunger = 20;
   }
 
   socialize() {
