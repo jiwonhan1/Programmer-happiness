@@ -8,10 +8,26 @@
 </head>
 <body>
   <div class="container">
-    <div id="main-content">
-      <div id="health-display"></div>
-      <div id="task-list-display"></div>
-    </div>           
+    <div class="row">
+      <div class="col-12">
+          <h1>Get Weather Conditions From Anywhere!</h1>
+          <label for="location">Enter a location:</label>
+          <input id="location" type="text">
+          <button class="btn-success" id="weatherLocation">Get Current Temperature and Humidity</button>
+          <div class="errors"></div>
+          <div class="showHumidity"></div>
+          <div class="showTemp"></div>
+      </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <div id="main-content">
+                <div id="health-display"></div>
+                <div id="task-list-display"></div>
+              </div>
+            <div id="user-buttons"></div>  
+        </div>
+      </div>     
   </div>
 </body>
 </html>

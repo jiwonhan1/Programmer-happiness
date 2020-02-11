@@ -218,7 +218,7 @@ export function startGame() {
   },10)
  }
   export function createButtons() {
-    let mainContent = document.getElementById("health-display");
+    let mainContent = document.getElementById("user-buttons");
     let socialButton = document.createElement("button");
     socialButton.id = "socialize-button";
     socialButton.className = "user-button";

@@ -9,13 +9,17 @@
 }
 
 #health-display {
+    position: relative;
     width: 48%;
-    height: 1000px;
+    height: 700px;
     border: 2px solid lightblue;
+    float: left;
+    display: flex;
+    flex-direction: row;
 }
 #task-list-display {
     width: 48%;
-    height: 1000px;
+    height: 700px;
     border: 2px solid teal;
     float: right;
 }
@@ -29,9 +33,13 @@
 }
 #happiness-meter {
     border: 2px solid red;
-    height: 400px;
+    height: 600px;
+    width: 100px;
     display: flex;
     flex-direction: column-reverse;
+    position: absolute;
+    bottom: 0px;
+    left: 0px;
 }
 
 .happiness-bar-container {
@@ -41,48 +49,51 @@
 }
 #social-meter {
     border: 2px solid red;
-    height: 400px;
+    height: 200px;
     width: 100px;
     display: flex;
     flex-direction: column-reverse;
+    position: absolute;
+    bottom: 0px;
+    left: 100px;
 }
 
 .social-bar-container {
     width: 100px;
     height: 10px;
-    background-color: red;
+    background-color: yellow;
 }
 #work-meter {
     border: 2px solid red;
-    height: 400px;
+    height: 200px;
     width: 100px;
     display: flex;
     flex-direction: column-reverse;
+    position: absolute;
+    bottom: 0px;
+    left: 200px;
 }
 
 .work-bar-container {
     width: 100px;
     height: 10px;
-    background-color: red;
+    background-color: blue;
 }
-#happiness-meter {
+#hunger-meter {
     border: 2px solid red;
-    height: 400px;
+    height: 200px;
     width: 100px;
     display: flex;
     flex-direction: column-reverse;
+    position: absolute;
+    bottom: 0px;
+    left: 300px;
 }
 
 .hunger-bar-container {
     width: 100px;
     height: 10px;
-    background-color: red;
-}
-.hunger-bar {
-    border: 2px solid green;
-    background-color: blue;
-    width: 96px;
-    height: 6px;
+    background-color: green;
 }
 .hidden {
     display: none;
