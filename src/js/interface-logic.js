@@ -8,6 +8,27 @@ export function createHappinessMeterContainer() {
   mainContent.append(meterDiv);
 }
 
+export function createSocialMeterContainer() {
+  let mainContent = document.getElementById("health-display");
+  let meterDiv = document.createElement("div");
+  meterDiv.id = "social-meter";
+  mainContent.append(meterDiv);
+}
+
+export function createHungerMeterContainer() {
+  let mainContent = document.getElementById("health-display");
+  let meterDiv = document.createElement("div");
+  meterDiv.id = "hunger-meter";
+  mainContent.append(meterDiv);
+}
+
+export function createWorkMeterContainer() {
+  let mainContent = document.getElementById("health-display");
+  let meterDiv = document.createElement("div");
+  meterDiv.id = "work-meter";
+  mainContent.append(meterDiv);
+}
+
 export function createHappinessMeterBarsContainers(programmerHappiness){
   if(programmerHappiness.getHappiness() <= 0) {
   //  alert("You Lose!!!!!!!!!!!!!!");
@@ -23,8 +44,61 @@ export function createHappinessMeterBarsContainers(programmerHappiness){
   }
 }
 
+export function createSocialMeterBarsContainers(programmerHappiness){
+  if(programmerHappiness.getSocial() <= 0) {
+  //  alert("You Lose!!!!!!!!!!!!!!");
+  }
+  let meterDiv = document.getElementById("social-meter");
+  while(meterDiv.firstChild) {
+    meterDiv.removeChild(meterDiv.firstChild);
+  }
+  for(let i = 0; i < programmerHappiness.getSocial(); i++) {
+    let barContainer = document.createElement("div");
+    barContainer.className = "social-bar-container";
+    meterDiv.append(barContainer);
+  }
+}
+
+export function createHungerMeterBarsContainers(programmerHappiness){
+  if(programmerHappiness.getHunger() <= 0) {
+  //  alert("You Lose!!!!!!!!!!!!!!");
+  }
+  let meterDiv = document.getElementById("hunger-meter");
+  while(meterDiv.firstChild) {
+    meterDiv.removeChild(meterDiv.firstChild);
+  }
+  for(let i = 0; i < programmerHappiness.getHunger(); i++) {
+    let barContainer = document.createElement("div");
+    barContainer.className = "hunger-bar-container";
+    meterDiv.append(barContainer);
+  }
+}
+
+export function createWorkMeterBarsContainers(programmerHappiness){
+  if(programmerHappiness.getWork() <= 0) {
+  //  alert("You Lose!!!!!!!!!!!!!!");
+  }
+  let meterDiv = document.getElementById("work-meter");
+  while(meterDiv.firstChild) {
+    meterDiv.removeChild(meterDiv.firstChild);
+  }
+  for(let i = 0; i < programmerHappiness.getWork(); i++) {
+    let barContainer = document.createElement("div");
+    barContainer.className = "work-bar-container";
+    meterDiv.append(barContainer);
+  }
+}
 export function createHappinessMeter() {
   createHappinessMeterContainer();
+}
+export function createSocialMeter() {
+  createSocialMeterContainer();
+}
+export function createWorkMeter() {
+  createWorkMeterContainer();
+}
+export function createHungerMeter() {
+  createHungerMeterContainer();
 }
 
 export function createTaskAtRandomIntervals() {
@@ -41,31 +115,41 @@ export function createTaskList() {
 }
 
 export function createTask(task) {
+  let s = createTaskHtml(task);
+  attachTaskDueCountDown(s, task);
+}
+
+export function createTaskHtml(task) {
   let taskList = document.getElementById("task-list");
   let taskDiv = document.createElement("div");
   taskDiv.className = "task-list-item";
-  
+
+  let taskDue = document.createElement("p");
+  taskDue.className = "task-due";
+  taskDue.innerHTML = `Task due in: ${task.due}`;
+
   let taskDescription = document.createElement("p");
   taskDescription.className = "task-description";
-  taskDescription.innerHTML = `${task.description}`;
+  taskDescription.innerHTML = `Description: ${task.description}`;
+
   let taskEstimatedTimeToComplete = document.createElement("p");
   taskEstimatedTimeToComplete.className = "task-time";
-  taskEstimatedTimeToComplete.innerHTML = `${(task.time/1000)} seconds`;
+  taskEstimatedTimeToComplete.innerHTML = `ETA: ${(task.time/1000)} seconds`;
+
   let taskStartButton = document.createElement("button");
   taskStartButton.className = "start-task-button";
   taskStartButton.innerHTML = "Start task";
-  attachTaskDue(taskDiv, task);
+
+  //let taskDue = attachTaskDueHtml(taskDiv, task);
+  taskDiv.append(taskDue);
   taskDiv.append(taskDescription);
   taskDiv.append(taskEstimatedTimeToComplete);
   taskDiv.append(taskStartButton);
   attachStartTaskButtonListener(taskStartButton, task, taskDiv);
+
+  //attachCountDown(taskDue, task)
   taskList.append(taskDiv);
-}
-export function attachTaskDue(taskDiv, task) {
-  let taskDue = document.createElement("p");
-  taskDue.className = "task-due";
-  taskDue.innerHTML = `${task.timeRemainingOnTask()}`;
-  taskDiv.append(taskDue);
+  return taskDue;
 }
 
 export function attachStartTaskButtonListener(taskStartButton, task, taskDiv) {
@@ -73,6 +157,21 @@ export function attachStartTaskButtonListener(taskStartButton, task, taskDiv) {
     let timeToProcess = task.time;
     hideButtonsTaskLength(timeToProcess, taskDiv);
   });
+}
+
+export function attachTaskDueCountDown(s, task) {
+  let taskDueArray = document.getElementsByClassName("task-due");
+  console.log(taskDueArray.length);
+  console.log(taskDueArray[0]);
+  // let taskDue = taskDueArray[taskDueArray.length-1];
+  let taskDue = s;
+  //taskDue.addEventListener("")
+  console.log(taskDue + " taskdue");
+  setInterval(() => {
+    let timeRemaining = task.getDue();
+    console.log(timeRemaining + " due");
+    taskDue.innerHTML = `Task due in: ${timeRemaining}`;
+  }, 50)
 }
 
 export function hideButtonsTaskLength(time, taskDiv) {
@@ -94,9 +193,13 @@ export function hideButtonsTaskLength(time, taskDiv) {
 
 export function startGame() {
   createHappinessMeter();
+  createSocialMeter();
+  createHungerMeter();
+  createWorkMeter();
   createButtons();
   createTaskList();
   let task = new Task("Complete everything", 5000, 10000);
+  task.timeRemainingOnTask();
   createTask(task);
   let p = new Programmer();
   p.socialDrainPerSecond();
@@ -109,6 +212,9 @@ export function startGame() {
  export function runGame(p) {
   setInterval(() => {
     createHappinessMeterBarsContainers(p);
+    createSocialMeterBarsContainers(p);
+    createHungerMeterBarsContainers(p);
+    createWorkMeterBarsContainers(p);
   },10)
  }
   export function createButtons() {

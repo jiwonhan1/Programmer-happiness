@@ -10,6 +10,18 @@ export class Programmer {
     return this.happiness;
   }
 
+  getHunger() {
+    return this.hunger;
+  }
+
+  getSocial() {
+    return this.social;
+  }
+
+  getWork() {
+    return this.work;
+  }
+
   hungerDrainPerSecond() {
     setInterval(() => {
       if(this.hunger <= 0) {

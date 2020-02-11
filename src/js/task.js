@@ -5,6 +5,9 @@ export class Task {
     this.due = due;
   }
 
+  getDue() {
+    return this.due;
+  }
   beginTask() {
     setTimeout(function() {
       this.complete = true;
@@ -13,7 +16,8 @@ export class Task {
 
   timeRemainingOnTask() {
     setInterval(() => {
-      this.due = this.due--;
+      this.due = this.due - 1000;
+      console.log(this.due);
     }, 1000)
   }
 
