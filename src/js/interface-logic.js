@@ -1,6 +1,15 @@
 import { Programmer } from './programmer.js';
 import { Task } from './task.js';
 
+export async function thisIsAsync() { setTimeout(() => {
+  return alert("This is asyncOne at 1500ms ran 2nd");
+}, 1500);
+}
+
+export async function thisIsAsyncTwo() { setTimeout(() => {
+  return alert("This is asyncTwo at 2000ms ran first");
+}, 2000);
+}
 export function createHappinessMeterContainer() {
   let mainContent = document.getElementById("health-display");
   let meterDiv = document.createElement("div");
@@ -103,8 +112,16 @@ export function createHungerMeter() {
 
 export function createTaskAtRandomIntervals() {
   setInterval(() => {
-
-  }, 1000)
+    let tasks = document.getElementsByClassName("task-list-item");
+    if(tasks.length < 1) {
+      let taskDescriptions = ["Work on front end", "Work on back end", "Product support"];
+      let taskDescriptionValue = Math.floor((Math.random() * (taskDescriptions.length)));
+      let taskTimeToComplete = Math.floor(((Math.random() * (4))) + 1) * 1000;
+      let taskDue = Math.floor(((Math.random() * (5))) + 10) * 1000;
+      let t = new Task(taskDescriptions[taskDescriptionValue], taskTimeToComplete, taskDue);
+      createTask(t);
+    }
+  }, 4000)
 }
 
 export function createTaskList() {
@@ -117,6 +134,8 @@ export function createTaskList() {
 export function createTask(task) {
   let s = createTaskHtml(task);
   attachTaskDueCountDown(s, task);
+  console.log("task");
+  task.timeRemainingOnTask();
 }
 
 export function createTaskHtml(task) {
@@ -140,14 +159,12 @@ export function createTaskHtml(task) {
   taskStartButton.className = "start-task-button";
   taskStartButton.innerHTML = "Start task";
 
-  //let taskDue = attachTaskDueHtml(taskDiv, task);
   taskDiv.append(taskDue);
   taskDiv.append(taskDescription);
   taskDiv.append(taskEstimatedTimeToComplete);
-  taskDiv.append(taskStartButton);
+  taskEstimatedTimeToComplete.append(taskStartButton);
   attachStartTaskButtonListener(taskStartButton, task, taskDiv);
 
-  //attachCountDown(taskDue, task)
   taskList.append(taskDiv);
   return taskDue;
 }
@@ -160,54 +177,46 @@ export function attachStartTaskButtonListener(taskStartButton, task, taskDiv) {
 }
 
 export function attachTaskDueCountDown(s, task) {
-  let taskDueArray = document.getElementsByClassName("task-due");
-  console.log(taskDueArray.length);
-  console.log(taskDueArray[0]);
-  // let taskDue = taskDueArray[taskDueArray.length-1];
   let taskDue = s;
-  //taskDue.addEventListener("")
-  console.log(taskDue + " taskdue");
-  setInterval(() => {
+  let t = setInterval(() => {
     let timeRemaining = task.getDue();
-    console.log(timeRemaining + " due");
-    taskDue.innerHTML = `Task due in: ${timeRemaining}`;
+    taskDue.innerHTML = `Task due in: ${timeRemaining/1000} seconds`;
   }, 50)
 }
 
 export function hideButtonsTaskLength(time, taskDiv) {
-  //let healthDisplay = document.getElementById("health-display");
   let userButtons = document.getElementsByClassName("user-button");
-  //let userButtons = document.querySelectorAll("health-display button");
   for(let i = 0; i < userButtons.length; i++) {
     userButtons[i].classList.add("hidden");
   }
-  setTimeout(() => {
+  let timeout = setTimeout(() => {
     for(let i = 0; i < userButtons.length; i++) {
       userButtons[i].classList.remove("hidden");
     }
     taskDiv.remove();
   },time)
-  console.log(userButtons.length);
-  console.log(time)
+  clearInterval(timeout);
+  clearInterval(taskDueInterval);
 }
 
-export function startGame() {
+export function startGame(temp) {
   createHappinessMeter();
   createSocialMeter();
   createHungerMeter();
   createWorkMeter();
   createButtons();
   createTaskList();
-  let task = new Task("Complete everything", 5000, 10000);
-  task.timeRemainingOnTask();
-  createTask(task);
-  let p = new Programmer();
+  // let task = new Task("Complete everything", 5000, 10000);
+  // task.timeRemainingOnTask();
+  // createTask(task);
+  let p = new Programmer(temp);
   p.socialDrainPerSecond();
   p.workDrainPerSecond();
   p.hungerDrainPerSecond();
   p.totalHappiness();
   runGame(p);
   attachButtonListeners(p);
+  createTaskAtRandomIntervals();
 }
  export function runGame(p) {
   setInterval(() => {
@@ -262,4 +271,12 @@ export function startGame() {
   export function socialize(programmer) {
     programmer.socialize();
     runGame(programmer);
+  }
+  
+  export function updateWeatherDisplay(city, temp) {
+    let showTemp = document.getElementById("#showTemp");
+    showTemp.innerHTML = `The temperature in ${city} is ${temp} Kelvins`
+  }
+
+  export function createProgressRing() {
   }

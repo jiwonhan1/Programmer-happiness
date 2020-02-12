@@ -32,7 +32,6 @@
     width: 100%;  
 }
 #happiness-meter {
-    border: 2px solid red;
     height: 600px;
     width: 100px;
     display: flex;
@@ -48,14 +47,13 @@
     background-color: red;
 }
 #social-meter {
-    border: 2px solid red;
     height: 200px;
     width: 100px;
     display: flex;
     flex-direction: column-reverse;
     position: absolute;
     bottom: 0px;
-    left: 100px;
+    left: 101px;
 }
 
 .social-bar-container {
@@ -64,14 +62,13 @@
     background-color: yellow;
 }
 #work-meter {
-    border: 2px solid red;
     height: 200px;
     width: 100px;
     display: flex;
     flex-direction: column-reverse;
     position: absolute;
     bottom: 0px;
-    left: 200px;
+    left: 202px;
 }
 
 .work-bar-container {
@@ -79,8 +76,8 @@
     height: 10px;
     background-color: blue;
 }
+
 #hunger-meter {
-    border: 2px solid red;
     height: 200px;
     width: 100px;
     display: flex;

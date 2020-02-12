@@ -1,9 +1,14 @@
 export class Programmer {
-  constructor() {
-    this.hunger = 20;
-    this.social = 20;
-    this.work = 20;
-    this.happiness;
+  constructor(temp) {
+    if(temp < 400.48) {
+      this.initalHappiness = 60;
+    } else {
+      this.initalHappiness = 90;
+    }
+    this.initalHappiness;
+    this.hunger = (this.initalHappiness/3);
+    this.social = (this.initalHappiness/3);
+    this.work = (this.initalHappiness/3);
   }
   
   getHappiness() {
@@ -26,10 +31,8 @@ export class Programmer {
     setInterval(() => {
       if(this.hunger <= 0) {
         this.hunger = this.hunger - 2;
-        console.log(this.hunger + " hunger")
       } else {
         this.hunger = this.hunger - 1;
-        console.log(this.hunger + " hunger")
       }
     },1000);
   }
@@ -42,7 +45,7 @@ export class Programmer {
         this.social = this.social - 1;
       }
     },1000);
-}
+  }
 
   workDrainPerSecond() {
     setInterval(() => {
@@ -52,22 +55,23 @@ export class Programmer {
         this.work = this.work - 1;
       }
     },1000);
-}
+  }
 
   totalHappiness() {
     setInterval(() => {
       this.happiness = this.work + this.social + this.hunger;
     }, 1);
   }
+
   feed() {
-    this.hunger = 20;
+    this.hunger = (this.initalHappiness/3);
   }
 
   socialize() {
-    this.social = 20;
+    this.social = (this.initalHappiness/3);
   }
 
   relax() {
-    this.work = 20;
+    this.work = (this.initalHappiness/3);
   }
 }
